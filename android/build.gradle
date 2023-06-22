@@ -22,8 +22,8 @@ rootProject.allprojects {
         maven {
             url 'https://maven.pkg.github.com/pagecall/pagecall-android-sdk'
             credentials {
-                username = project.findProperty("GITHUB_USERNAME") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
+                username = rootProject.findProperty("GITHUB_USERNAME") ?: System.getenv("GITHUB_USERNAME")
+                password = rootProject.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
