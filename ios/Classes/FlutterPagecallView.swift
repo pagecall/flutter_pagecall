@@ -21,7 +21,7 @@ public class FlutterPagecallView: NSObject, FlutterPlatformView {
     }
 }
 
-class FlutterEmbedView : UIView {
+class FlutterEmbedView: UIView, PagecallDelegate {
     let pagecallWebView = PagecallWebView()
     
     private var channel: FlutterMethodChannel?
@@ -36,15 +36,13 @@ class FlutterEmbedView : UIView {
         
         initMethodChannel()
         initParams(creationParams)
-        
+
+        pagecallWebView.delegate = self
+
         Task {
             await invalidateWebsideDataIncludingAccessToken()
-            
-            let _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: [URLQueryItem.init(name: "access_token", value: accessToken)])
-            
-            let _ = self.pagecallWebView.listenMessage { message in
-                self.channel?.invokeMethod("onMessageReceived", arguments: message)
-            }
+
+            _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: [URLQueryItem.init(name: "access_token", value: accessToken)])
         }
         
         self.addSubview(pagecallWebView)
@@ -121,5 +119,14 @@ class FlutterEmbedView : UIView {
                                        width: self.frame.width,
                                        height: self.frame.height)
         super.layoutSubviews()
+    }
+
+    // MARK: PagecallDelegate
+    func pagecallDidTerminate(_ view: Pagecall.PagecallWebView, reason: Pagecall.TerminationReason) {
+        // Noop
+    }
+
+    func pagecallDidReceive(_ view: PagecallWebView, message: String) {
+        self.channel?.invokeMethod("onMessageReceived", arguments: message)
     }
 }
