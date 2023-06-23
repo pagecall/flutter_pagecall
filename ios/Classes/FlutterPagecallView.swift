@@ -40,7 +40,7 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         pagecallWebView.delegate = self
 
         Task {
-            await invalidateWebsideDataIncludingAccessToken()
+            await clearWebsideDataToInvalidateAccessToken()
 
             _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: [URLQueryItem.init(name: "access_token", value: accessToken)])
         }
@@ -100,7 +100,7 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         }
     }
     
-    func invalidateWebsideDataIncludingAccessToken() async {
+    func clearWebsideDataToInvalidateAccessToken() async {
         let dataRecords = await WKWebsiteDataStore.default().dataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes())
         
         await WKWebsiteDataStore.default().removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), for: dataRecords)
