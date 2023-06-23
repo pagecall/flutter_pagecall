@@ -65,7 +65,6 @@ class _MyAppState extends State<MyApp> {
                   _pagecallViewController = controller;
                 },
                 onMessageReceived: (message) {
-                  // TODO: when null?
                   debugPrint('Received message=$message');
                   Fluttertoast.showToast(
                       msg: 'Message from Native: $message');
