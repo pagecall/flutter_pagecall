@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
                   // TODO: when null?
                   debugPrint('Received message=$message');
                   Fluttertoast.showToast(
-                      msg: 'Message from PagecallView: $message');
+                      msg: 'Message from Native: $message');
                 },
               ),
             ),
