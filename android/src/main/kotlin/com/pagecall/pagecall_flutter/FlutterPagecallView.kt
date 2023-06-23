@@ -72,22 +72,6 @@ class FlutterPagecallView(
 
     override fun getView(): View = pagecallWebView
 
-//    override fun onInputConnectionUnlocked() {
-//        pagecallWebView.unlockInputConnection()
-//    }
-//
-//    override fun onInputConnectionLocked() {
-//        pagecallWebView.lockInputConnection()
-//    }
-//
-//    override fun onFlutterViewAttached(flutterView: View) {
-//        pagecallWebView.setContainerView(flutterView)
-//    }
-//
-//    override fun onFlutterViewDetached() {
-//        pagecallWebView.setContainerView(null)
-//    }
-
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         val arguments = call.arguments<Map<String, Any>>()
 
