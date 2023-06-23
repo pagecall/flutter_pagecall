@@ -46,13 +46,6 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         }
         
         self.addSubview(pagecallWebView)
-        
-        
-        if #available(iOS 16.4, *) {
-            pagecallWebView.isInspectable = true
-        } else {
-            // Fallback on earlier versions
-        }
     }
     
     override init(frame: CGRect) {
