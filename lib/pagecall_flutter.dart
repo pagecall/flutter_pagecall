@@ -20,6 +20,8 @@ class PagecallView extends StatelessWidget {
 
   final void Function(String message)? onMessageReceived;
 
+  final bool debuggable;
+
   PagecallView({
     Key? key,
     this.mode,
@@ -27,6 +29,7 @@ class PagecallView extends StatelessWidget {
     this.accessToken,
     this.onViewCreated,
     this.onMessageReceived,
+    this.debuggable = false,
   }) : super(key: key);
 
   static PlatformPagecallView? _platform;
@@ -61,6 +64,7 @@ class PagecallView extends StatelessWidget {
         mode: mode,
         roomId: roomId,
         accessToken: accessToken,
+        debuggable: debuggable,
       ),
       viewType: viewType,
       onPlatformViewCreated: _onPlatformViewCreated,
@@ -84,10 +88,13 @@ class CreationParams {
 
   final String? accessToken;
 
+  final bool debuggable;
+
   CreationParams({
     this.mode,
     this.roomId,
     this.accessToken,
+    this.debuggable = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -95,6 +102,7 @@ class CreationParams {
       "mode": mode,
       "roomId": roomId,
       "accessToken": accessToken,
+      "debuggable": debuggable
     };
   }
 }

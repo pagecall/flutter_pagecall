@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.view.View
+import android.webkit.WebView
 import com.pagecall.PagecallWebView
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -21,11 +22,14 @@ class FlutterPagecallView(
     private var mode: String? = null
     private var roomId: String? = null
     private var accessToken: String? = null
+    private var debuggable: Boolean = false
 
     init {
         initParams(params)
 
         channel.setMethodCallHandler(this)
+
+        WebView.setWebContentsDebuggingEnabled(debuggable)
 
         pagecallWebView = PagecallWebView(context).apply {
             listenMessage {
@@ -49,6 +53,10 @@ class FlutterPagecallView(
 
         if (params.containsKey("accessToken")) {
             accessToken = params.getValue("accessToken")?.toString()
+        }
+
+        if (params.containsKey("debuggable")) {
+            debuggable = params.getOrDefault("debuggable", false) as Boolean
         }
     }
 
