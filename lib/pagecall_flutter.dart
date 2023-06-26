@@ -5,10 +5,9 @@ import 'package:pagecall_flutter/platform_interface.dart';
 import 'package:pagecall_flutter/src/android_pagecallview.dart';
 import 'package:pagecall_flutter/src/cupertino_pagecallview.dart';
 
+//ignore: must_be_immutable
 class PagecallView extends StatelessWidget {
   static const String viewType = 'com.pagecall/pagecall_flutter';
-
-  late final PagecallViewController _controller;
 
   final String? mode;
 
@@ -21,6 +20,8 @@ class PagecallView extends StatelessWidget {
   final void Function(String message)? onMessageReceived;
 
   final bool debuggable;
+
+  late PagecallViewController _controller;
 
   PagecallView({
     Key? key,
