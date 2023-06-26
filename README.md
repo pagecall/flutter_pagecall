@@ -2,6 +2,7 @@
 
 This is the official Pagecall Flutter SDK developed and maintained by Pagecall Inc.
 
+
 ## Installation
 
 In the `dependencies:` section of your `pubspec.yaml`, add the following line:
@@ -10,10 +11,12 @@ dependencies:
   pagecall_flutter: <latest_version>
 ```
 
-Generate Github access token with `read:packages` scope, then set `GITHUB_USERNAME` and `GITHUB_TOKEN` for your environment variables or put these as properties of the Android root project when running your app.
+For Android build, generate Github access token with `read:packages` scope on Github profile setting, then set `GITHUB_USERNAME` and `GITHUB_TOKEN` for your environment variables or put these as properties of the Android root project when running your app.
 ```shell
 GITHUB_USERNAME=<username> GITHUB_TOKEN=<token> flutter run  # when running as command
 ```
+
+For iOS build, in `Info.plist` of your iOS workspace, make sure you set `NSMicrophoneUsageDescription`. Also, those `UIBackgroundModes` should be enabled: `audio`, `fetch`, `voip`.
 
 
 ## Usage
@@ -41,6 +44,7 @@ Expanded(
 _pagecallViewController?.sendMessage(message);  // when invoking sendMessage
 ```
 
+
 ## Compatibility
 
 The following matrix lists the minimum support for Pagecall Flutter SDK version.
@@ -48,6 +52,7 @@ The following matrix lists the minimum support for Pagecall Flutter SDK version.
 |Pagecall Flutter|iOS|Android minSdk|
 |-|-|-|
 | `1.0.+` | `14+` | `24+` |
+
 
 ## Need Help?
 
