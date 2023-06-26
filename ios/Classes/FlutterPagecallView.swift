@@ -29,19 +29,24 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     private var mode: PagecallMode?
     private var roomId: String?
     private var accessToken: String?
+    private var debuggable: Bool = false
     
     convenience init(frame: CGRect, channel: FlutterMethodChannel?, creationParams: [String: Any]?) {
         self.init(frame: frame)
         self.channel = channel
         
-        initMethodChannel()
         initParams(creationParams)
-
+        initMethodChannel()
+        
+        if #available(iOS 16.4, *) {
+            pagecallWebView.isInspectable = debuggable
+        }
+        
         pagecallWebView.delegate = self
-
+        
         Task {
             await clearWebsideDataToInvalidateAccessToken()
-
+            
             _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: [URLQueryItem.init(name: "access_token", value: accessToken)])
         }
         
@@ -98,6 +103,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         if let val = params!["accessToken"] as? String {
             accessToken = val
         }
+        
+        if let val = params!["debuggable"] as? Bool {
+            debuggable = val
+        }
     }
     
     func clearWebsideDataToInvalidateAccessToken() async {
@@ -113,12 +122,12 @@ class FlutterEmbedView: UIView, PagecallDelegate {
                                        height: self.frame.height)
         super.layoutSubviews()
     }
-
+    
     // MARK: PagecallDelegate
     func pagecallDidTerminate(_ view: Pagecall.PagecallWebView, reason: Pagecall.TerminationReason) {
         // Noop
     }
-
+    
     func pagecallDidReceive(_ view: PagecallWebView, message: String) {
         self.channel?.invokeMethod("onMessageReceived", arguments: message)
     }

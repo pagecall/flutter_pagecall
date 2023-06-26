@@ -66,9 +66,9 @@ class _MyAppState extends State<MyApp> {
                 },
                 onMessageReceived: (message) {
                   debugPrint('Received message=$message');
-                  Fluttertoast.showToast(
-                      msg: 'Message from Native: $message');
+                  Fluttertoast.showToast(msg: 'Message from Native: $message');
                 },
+                debuggable: true,
               ),
             ),
           ],
