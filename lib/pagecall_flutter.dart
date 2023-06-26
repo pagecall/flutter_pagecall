@@ -8,7 +8,7 @@ import 'package:pagecall_flutter/src/cupertino_pagecallview.dart';
 class PagecallView extends StatelessWidget {
   static const String viewType = 'com.pagecall/pagecall_flutter';
 
-  late PagecallViewController _controller;
+  late final PagecallViewController _controller;
 
   final String? mode;
 
@@ -71,7 +71,6 @@ class PagecallView extends StatelessWidget {
     );
   }
 
-  @override
   void _onPlatformViewCreated(int id) {
     _controller = PagecallViewController(id, this);
 
@@ -114,8 +113,8 @@ class PagecallViewController {
 
   PagecallViewController(dynamic id, PagecallView pagecallView) {
     _id = id;
-    String channelName = "com.pagecall/pagecall_flutter\$$id";
-    print("Flutter channelName=$channelName");
+    String channelName = "com.pagecall/pagecall_flutter\$$_id";
+
     _channel = MethodChannel(channelName);
     _channel.setMethodCallHandler(handleMethod);
     _pagecallView = pagecallView;
