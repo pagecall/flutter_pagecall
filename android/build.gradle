@@ -33,7 +33,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -50,7 +50,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 24 // https://github.com/pagecall/pagecall-android-sdk/blob/3b6b6eb07701fa69488098a96f25f1e5b6a81ab4/pagecall/build.gradle#L10
     }
 
     dependencies {
