@@ -129,6 +129,6 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     }
     
     func pagecallDidReceive(_ view: PagecallWebView, message: String) {
-        self.channel?.invokeMethod("onMessageReceived", arguments: message)
+        self.channel?.invokeMethod("onMessage", arguments: message)
     }
 }

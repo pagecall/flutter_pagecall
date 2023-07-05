@@ -17,7 +17,9 @@ class PagecallView extends StatelessWidget {
 
   final void Function(PagecallViewController controller)? onViewCreated;
 
-  final void Function(String message)? onMessageReceived;
+  final void Function()? onLoaded;
+  final void Function(String message)? onMessage;
+  final void Function(String reason)? onTerminated;
 
   final bool debuggable;
 
@@ -29,7 +31,9 @@ class PagecallView extends StatelessWidget {
     this.roomId,
     this.accessToken,
     this.onViewCreated,
-    this.onMessageReceived,
+    this.onLoaded,
+    this.onMessage,
+    this.onTerminated,
     this.debuggable = false,
   }) : super(key: key);
 
@@ -123,14 +127,30 @@ class PagecallViewController {
 
   Future<dynamic> handleMethod(MethodCall call) async {
     switch (call.method) {
-      case 'onMessageReceived':
+      case 'onMessage':
         if (_pagecallView != null) {
           String message = call.arguments.toString();
-          if (_pagecallView?.onMessageReceived != null) {
-            _pagecallView?.onMessageReceived!(message);
+          if (_pagecallView?.onMessage!= null) {
+            _pagecallView?.onMessage!(message);
           }
         }
         break;
+      case 'onLoaded':
+        if (_pagecallView != null) {
+          if (_pagecallView?.onLoaded!= null) {
+            _pagecallView?.onLoaded!();
+          }
+        }
+        break;
+      case 'onTerminated':
+        if (_pagecallView != null) {
+          String reason = call.arguments.toString();
+          if (_pagecallView?.onTerminated!= null) {
+            _pagecallView?.onTerminated!(reason);
+          }
+        }
+        break;
+
       default:
         throw UnimplementedError('Unimplemented method=${call.method}');
     }
