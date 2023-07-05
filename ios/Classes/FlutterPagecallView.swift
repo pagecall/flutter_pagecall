@@ -124,8 +124,11 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     }
     
     // MARK: PagecallDelegate
+    func pagecallDidLoad(_ view: Pagecall.PagecallWebView) {
+        self.channel?.invokeMethod("onLoaded", arguments: nil)
+    }
     func pagecallDidTerminate(_ view: Pagecall.PagecallWebView, reason: Pagecall.TerminationReason) {
-        // Noop
+        self.channel?.invokeMethod("onTerminated", arguments: nil) // TODO: pass reason
     }
     
     func pagecallDidReceive(_ view: PagecallWebView, message: String) {
