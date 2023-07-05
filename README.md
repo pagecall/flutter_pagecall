@@ -34,8 +34,14 @@ Expanded(
     onViewCreated: (controller) {
       _pagecallViewController = controller;
     },
+    onLoaded: () {
+      debugPrint('onLoaded');
+    },
     onMessage: (message) {
       debugPrint('Received message=$message');
+    },
+    onTerminated: (reason) {
+      debugPrint('onTerminated')
     },
     debuggable: true,
   ),

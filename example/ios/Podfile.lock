@@ -5,10 +5,10 @@ PODS:
     - Toast
   - integration_test (0.0.1):
     - Flutter
-  - Pagecall (0.0.13)
+  - Pagecall (0.0.15)
   - pagecall_flutter (0.0.1):
     - Flutter
-    - Pagecall (= 0.0.13)
+    - Pagecall (= 0.0.15)
   - Toast (4.0.0)
 
 DEPENDENCIES:
@@ -36,8 +36,8 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  Pagecall: 447c272d25a6326b02fa128e15392073aa606736
-  pagecall_flutter: a13dcdda6ebad14761a3943fb6fcada41783a476
+  Pagecall: 3488f4fdbbd31e4730bf8ad0a829379a0b5c496f
+  pagecall_flutter: 220516000a7ec9d267c3422d1c870ff07f0a4e3e
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
 PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
