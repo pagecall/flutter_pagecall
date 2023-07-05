@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import android.webkit.WebView
 import com.pagecall.PagecallWebView
+import com.pagecall.TerminationReason
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -31,15 +32,29 @@ class FlutterPagecallView(
 
         WebView.setWebContentsDebuggingEnabled(debuggable)
 
-        pagecallWebView = PagecallWebView(context).apply {
-            listenMessage {
-                Handler(context.mainLooper).post {
-                    channel.invokeMethod("onMessageReceived", it)
-                }
-            }
-        }
+        pagecallWebView = PagecallWebView(context)
 
         loadPage()
+
+        pagecallWebView.setListener(object: PagecallWebView.Listener {
+            override fun onLoaded() {
+                Handler(context.mainLooper).post {
+                    channel.invokeMethod("onLoaded", null)
+                }
+            }
+
+            override fun onMessage(message: String) {
+                Handler(context.mainLooper).post {
+                    channel.invokeMethod("onMessage", message)
+                }
+            }
+
+            override fun onTerminated(reason: TerminationReason) {
+                Handler(context.mainLooper).post {
+                    channel.invokeMethod("onTerminated", reason.toString())
+                }
+            }
+        })
     }
 
     private fun initParams(params: Map<String, Any?>) {

@@ -64,9 +64,17 @@ class _MyAppState extends State<MyApp> {
                 onViewCreated: (controller) {
                   _pagecallViewController = controller;
                 },
-                onMessageReceived: (message) {
+                onMessage: (message) {
                   debugPrint('Received message=$message');
                   Fluttertoast.showToast(msg: 'Message from Native: $message');
+                },
+                onLoaded: () {
+                  debugPrint('Pagecall loaded');
+                  Fluttertoast.showToast(msg: 'Pagecall loaded');
+                },
+                onTerminated: (reason) {
+                  debugPrint('Pagecall terminated: $reason');
+                  Fluttertoast.showToast(msg: 'Pagecall terminated: $reason');
                 },
                 debuggable: true,
               ),
