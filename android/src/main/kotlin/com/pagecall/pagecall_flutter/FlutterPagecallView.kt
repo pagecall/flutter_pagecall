@@ -51,7 +51,9 @@ class FlutterPagecallView(
 
             override fun onTerminated(reason: TerminationReason) {
                 Handler(context.mainLooper).post {
-                    channel.invokeMethod("onTerminated", reason.toString())
+                    val reasonString = if (reason == TerminationReason.OTHER) reason.otherReason
+                        else reason.value
+                    channel.invokeMethod("onTerminated", reasonString)
                 }
             }
         })
