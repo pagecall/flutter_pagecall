@@ -12,6 +12,14 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.platform.PlatformView
 
+fun String.toMap(): Map<String, String> {
+    return this.split("&")
+        .map {
+            val pair = it.split("=")
+            pair[0] to pair[1]
+        }
+        .toMap()
+}
 class FlutterPagecallView(
     context: Context,
     private val channel: MethodChannel,
@@ -23,6 +31,7 @@ class FlutterPagecallView(
     private var mode: String? = null
     private var roomId: String? = null
     private var accessToken: String? = null
+    private var queryParams: String? = null
     private var debuggable: Boolean = false
 
     init {
@@ -72,12 +81,17 @@ class FlutterPagecallView(
             accessToken = params.getValue("accessToken")?.toString()
         }
 
+        if(params.containsKey("queryParams")) {
+            queryParams = params.getValue("queryParams")?.toString()
+        }
+
         if (params.containsKey("debuggable")) {
             debuggable = params.getOrDefault("debuggable", false) as Boolean
         }
     }
 
     private fun loadPage() {
+        val queryMap = queryParams?.toMap()
         val url = Uri.parse("https://app.pagecall.com").buildUpon()
             .path(mode)
             .apply {
@@ -88,6 +102,11 @@ class FlutterPagecallView(
             .apply {
                 if (roomId != null) {
                     appendQueryParameter("access_token", accessToken)
+                }
+            }
+            .apply {
+                queryMap?.forEach { (key, value) ->
+                    appendQueryParameter(key, value)
                 }
             }
             .build()

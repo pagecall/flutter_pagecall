@@ -15,6 +15,8 @@ class PagecallView extends StatelessWidget {
 
   final String? accessToken;
 
+  final String? queryParams;
+
   final void Function(PagecallViewController controller)? onViewCreated;
 
   final void Function()? onLoaded;
@@ -30,6 +32,7 @@ class PagecallView extends StatelessWidget {
     this.mode,
     this.roomId,
     this.accessToken,
+    this.queryParams,
     this.onViewCreated,
     this.onLoaded,
     this.onMessage,
@@ -69,6 +72,7 @@ class PagecallView extends StatelessWidget {
         mode: mode,
         roomId: roomId,
         accessToken: accessToken,
+        queryParams: queryParams,
         debuggable: debuggable,
       ),
       viewType: viewType,
@@ -92,12 +96,15 @@ class CreationParams {
 
   final String? accessToken;
 
+  final String? queryParams;
+
   final bool debuggable;
 
   CreationParams({
     this.mode,
     this.roomId,
     this.accessToken,
+    this.queryParams,
     this.debuggable = false,
   });
 
@@ -106,6 +113,7 @@ class CreationParams {
       "mode": mode,
       "roomId": roomId,
       "accessToken": accessToken,
+      "queryParams": queryParams,
       "debuggable": debuggable
     };
   }
