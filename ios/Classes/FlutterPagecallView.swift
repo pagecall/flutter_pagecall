@@ -3,6 +3,13 @@ import UIKit
 import WebKit
 import Pagecall
 
+func stringToQueryItems(_ queryString: String) -> [URLQueryItem] {
+    return queryString.components(separatedBy: "&").map { component in
+        let keyValuePair = component.components(separatedBy: "=")
+        return URLQueryItem(name: keyValuePair[0], value: keyValuePair[1])
+    }
+}
+
 public class FlutterPagecallView: NSObject, FlutterPlatformView {
     private var _view: UIView
     
@@ -29,6 +36,7 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     private var mode: PagecallMode?
     private var roomId: String?
     private var accessToken: String?
+    private var queryParams: String?
     private var debuggable: Bool = false
     
     convenience init(frame: CGRect, channel: FlutterMethodChannel?, creationParams: [String: Any]?) {
@@ -43,11 +51,18 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         }
         
         pagecallWebView.delegate = self
+
+        var queryItems: [URLQueryItem] = Array()
+    
+        if let queryParams = queryParams {
+            queryItems.append(contentsOf: stringToQueryItems(queryParams))
+        }
+        queryItems.append(URLQueryItem(name: "access_token", value: accessToken))
         
         Task {
             await clearWebsideDataToInvalidateAccessToken()
             
-            _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: [URLQueryItem.init(name: "access_token", value: accessToken)])
+            _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: queryItems)
         }
         
         self.addSubview(pagecallWebView)
@@ -102,6 +117,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         
         if let val = params!["accessToken"] as? String {
             accessToken = val
+        }
+        
+        if let val = params!["queryParams"] as? String {
+            queryParams = val
         }
         
         if let val = params!["debuggable"] as? Bool {

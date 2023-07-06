@@ -1,52 +1,115 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pagecall_flutter/pagecall_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() => runApp(const MyApp());
 
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late final TextEditingController _textFieldController;
-  PagecallViewController? _pagecallViewController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _textFieldController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _textFieldController.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('PagecallView example app'),
-        ),
-        body: Column(
+      title: 'Text Transfer',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const FirstScreen(),
+    );
+  }
+}
+
+class FirstScreen extends StatefulWidget {
+  const FirstScreen({super.key});
+
+  @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  TextEditingController roomIdFieldController = TextEditingController();
+  TextEditingController accessTokenFieldController = TextEditingController();
+  TextEditingController queryParamsFieldController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Room Setting'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Column(children: [
+            TextField(
+              controller: roomIdFieldController,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(8.0),
+                hintText: 'Enter Room Id',
+              ),
+            ),
+            TextField(
+              controller: accessTokenFieldController,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(8.0),
+                hintText: 'Enter Access Token',
+              ),
+            ),
+            TextField(
+              controller: queryParamsFieldController,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(8.0),
+                hintText: 'Enter Query Params (Optional, a=1&b=2&c=3)',
+              ),
+            ),
+          ],),
+          ElevatedButton(
+            child: const Text('Enter Room'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SecondScreen(
+                    roomId: roomIdFieldController.text, 
+                    accessToken: accessTokenFieldController.text, 
+                    queryParams: queryParamsFieldController.text
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatefulWidget {
+  final String roomId;
+  final String accessToken;
+  final String queryParams;
+
+  const SecondScreen({super.key, required this.roomId, this.accessToken = '', this.queryParams = ''});
+
+  @override
+  State<SecondScreen> createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  final TextEditingController messageFieldController = TextEditingController();
+
+  PagecallViewController? pagecallViewController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pagecall Room'),
+      ),
+      body: Column(
           children: [
             TextField(
-              controller: _textFieldController,
+              controller: messageFieldController,
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(8.0),
                 hintText: "Submit to invoke sendMessage",
@@ -57,12 +120,11 @@ class _MyAppState extends State<MyApp> {
             Expanded(
               child: PagecallView(
                 mode: "meet",
-                roomId: "6486b3db6d4b09eaf7a6f456",
-                accessToken: Platform.isAndroid
-                    ? "3UXS_RTalT6VCIs5AuSnE-8yHIocRgny"
-                    : "cd_FQbSbZAr8LMcp4Zd4GbDAbDbKpT7R",
+                roomId: widget.roomId,
+                accessToken: widget.accessToken,
+                queryParams: widget.queryParams,
                 onViewCreated: (controller) {
-                  _pagecallViewController = controller;
+                  pagecallViewController = controller;
                 },
                 onMessage: (message) {
                   debugPrint('Received message=$message');
@@ -81,14 +143,13 @@ class _MyAppState extends State<MyApp> {
             ),
           ],
         ),
-      ),
     );
   }
 
   void _invokeSendMessage(String message) {
     debugPrint('invoking with message=$message');
 
-    _pagecallViewController?.sendMessage(message);
-    _textFieldController.clear();
+    pagecallViewController?.sendMessage(message);
+    messageFieldController.clear();
   }
 }
