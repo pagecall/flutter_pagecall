@@ -4,8 +4,9 @@ import WebKit
 import Pagecall
 
 func stringToQueryItems(_ queryString: String) -> [URLQueryItem] {
-    return queryString.components(separatedBy: "&").map { component in
+    return queryString.components(separatedBy: "&").compactMap { component in
         let keyValuePair = component.components(separatedBy: "=")
+        guard keyValuePair.count == 2 else { return nil }
         return URLQueryItem(name: keyValuePair[0], value: keyValuePair[1])
     }
 }
