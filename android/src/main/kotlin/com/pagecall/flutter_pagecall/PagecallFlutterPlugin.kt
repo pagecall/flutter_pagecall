@@ -1,4 +1,4 @@
-package com.pagecall.pagecall_flutter
+package com.pagecall.flutter_pagecall
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -10,7 +10,7 @@ class PagecallFlutterPlugin : FlutterPlugin {
         val registry = flutterPluginBinding.platformViewRegistry
 
         registry.registerViewFactory(
-            "com.pagecall/pagecall_flutter",
+            "com.pagecall/flutter_pagecall",
             FlutterPagecallViewFactory(messenger)
         )
     }

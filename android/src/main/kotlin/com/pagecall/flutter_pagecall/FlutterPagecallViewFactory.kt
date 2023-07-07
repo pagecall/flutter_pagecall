@@ -1,4 +1,4 @@
-package com.pagecall.pagecall_flutter
+package com.pagecall.flutter_pagecall
 
 import android.content.Context
 import io.flutter.plugin.common.BinaryMessenger
@@ -13,7 +13,7 @@ class FlutterPagecallViewFactory(
 ) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
     override fun create(context: Context, viewId: Int, args: Any?): PlatformView {
-        val channel = MethodChannel(messenger, "com.pagecall/pagecall_flutter$${viewId}")
+        val channel = MethodChannel(messenger, "com.pagecall/flutter_pagecall$${viewId}")
 
         return FlutterPagecallView(context, channel, args as Map<String, Any>)
     }

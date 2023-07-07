@@ -1,6 +1,6 @@
-# pagecall_flutter_example
+# flutter_pagecall_example
 
-Demonstrates how to use the pagecall_flutter plugin.
+Demonstrates how to use the flutter_pagecall plugin.
 
 ## Getting Started
 

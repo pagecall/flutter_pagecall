@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pagecall_flutter/pagecall_flutter.dart';
+import 'package:flutter_pagecall/flutter_pagecall.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(const MyApp());

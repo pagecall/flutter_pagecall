@@ -5,6 +5,6 @@ public class PagecallFlutterPlugin: NSObject, FlutterPlugin {
       let messenger = registrar.messenger()
       let factory = FlutterPagecallViewFactory(messenger: messenger)
       
-      registrar.register(factory, withId: "com.pagecall/pagecall_flutter")
+      registrar.register(factory, withId: "com.pagecall/flutter_pagecall")
   }
 }

@@ -1,4 +1,4 @@
-group 'com.pagecall.pagecall_flutter'
+group 'com.pagecall.flutter_pagecall'
 version '1.0-SNAPSHOT'
 
 buildscript {

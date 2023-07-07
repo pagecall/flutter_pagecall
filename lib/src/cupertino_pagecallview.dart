@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pagecall_flutter/pagecall_flutter.dart';
-import 'package:pagecall_flutter/platform_interface.dart';
+import 'package:flutter_pagecall/flutter_pagecall.dart';
+import 'package:flutter_pagecall/platform_interface.dart';
 
 class CupertinoPagecallView extends PlatformPagecallView {
   @override

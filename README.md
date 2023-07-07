@@ -8,7 +8,7 @@ This is the official Pagecall Flutter SDK developed and maintained by Pagecall I
 In the `dependencies:` section of your `pubspec.yaml`, add the following line:
 ```yaml
 dependencies:
-  pagecall_flutter: <latest_version>
+  flutter_pagecall: <latest_version>
 ```
 
 For Android build, generate Github access token with `read:packages` scope on Github profile setting, then set `GITHUB_USERNAME` and `GITHUB_TOKEN` for your environment variables or put these as properties of the Android root project when running your app.

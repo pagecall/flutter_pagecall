@@ -1,6 +1,6 @@
-name: pagecall_flutter
+name: flutter_pagecall
 description: Pagecall Flutter plugin
-version: 1.0.1
+version: 1.0.0
 homepage: https://www.pagecall.com
 repository: https://github.com/pagecall/flutter-pagecall
 
@@ -36,7 +36,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.pagecall.pagecall_flutter
+        package: com.pagecall.flutter_pagecall
         pluginClass: PagecallFlutterPlugin
       ios:
         pluginClass: PagecallFlutterPlugin
