@@ -93,6 +93,12 @@ class FlutterEmbedView: UIView, PagecallDelegate {
             }
             result(nil)
             break
+        case "dispose":
+            DispatchQueue.main.async {
+                self.dispose()
+            }
+            result(nil)
+            break;
         default:
             result(FlutterMethodNotImplemented)
             break
@@ -158,5 +164,11 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     
     func pagecallDidReceive(_ view: PagecallWebView, message: String) {
         self.channel?.invokeMethod("onMessage", arguments: message)
+    }
+    
+    private func dispose() {
+        self.channel?.setMethodCallHandler(nil)
+        self.pagecallWebView.removeFromSuperview()
+        self.pagecallWebView.delegate = nil
     }
 }
