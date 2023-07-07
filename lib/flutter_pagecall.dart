@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pagecall_flutter/platform_interface.dart';
-import 'package:pagecall_flutter/src/android_pagecallview.dart';
-import 'package:pagecall_flutter/src/cupertino_pagecallview.dart';
+import 'package:flutter_pagecall/platform_interface.dart';
+import 'package:flutter_pagecall/src/android_pagecallview.dart';
+import 'package:flutter_pagecall/src/cupertino_pagecallview.dart';
 
 //ignore: must_be_immutable
 class PagecallView extends StatefulWidget {
@@ -42,7 +42,7 @@ class PagecallView extends StatefulWidget {
   _PagecallViewState createState() => _PagecallViewState();
 }
 class _PagecallViewState extends State<PagecallView> {
-  static const String viewType = 'com.pagecall/pagecall_flutter';
+  static const String viewType = 'com.pagecall/flutter_pagecall';
 
 
   late PagecallViewController _controller;
@@ -139,7 +139,7 @@ class PagecallViewController {
 
   PagecallViewController(dynamic id, PagecallView pagecallView) {
     _id = id;
-    String channelName = "com.pagecall/pagecall_flutter\$$_id";
+    String channelName = "com.pagecall/flutter_pagecall\$$_id";
 
     _channel = MethodChannel(channelName);
     _channel.setMethodCallHandler(handleMethod);

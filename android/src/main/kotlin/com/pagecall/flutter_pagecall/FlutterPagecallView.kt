@@ -1,4 +1,4 @@
-package com.pagecall.pagecall_flutter
+package com.pagecall.flutter_pagecall
 
 import android.content.Context
 import android.net.Uri

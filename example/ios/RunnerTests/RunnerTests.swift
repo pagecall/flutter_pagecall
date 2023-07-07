@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import XCTest
 
-@testable import pagecall_flutter
+@testable import flutter_pagecall
 
 // This demonstrates a simple unit test of the Swift portion of this plugin's implementation.
 //

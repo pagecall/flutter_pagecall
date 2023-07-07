@@ -10,7 +10,7 @@ public class FlutterPagecallViewFactory: NSObject, FlutterPlatformViewFactory {
     }
     
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        let channel = FlutterMethodChannel(name: "com.pagecall/pagecall_flutter$\(viewId)", binaryMessenger: messenger)
+        let channel = FlutterMethodChannel(name: "com.pagecall/flutter_pagecall$\(viewId)", binaryMessenger: messenger)
         
         return FlutterPagecallView(
             frame: frame,

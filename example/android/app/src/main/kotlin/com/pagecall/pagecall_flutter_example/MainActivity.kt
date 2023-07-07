@@ -1,4 +1,4 @@
-package com.pagecall.pagecall_flutter_example
+package com.pagecall.flutter_pagecall_example
 
 import io.flutter.embedding.android.FlutterActivity
 

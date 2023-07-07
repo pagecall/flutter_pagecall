@@ -1,4 +1,4 @@
-package com.pagecall.pagecall_flutter
+package com.pagecall.flutter_pagecall
 
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel

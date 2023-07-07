@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:pagecall_flutter/pagecall_flutter.dart';
+import 'package:flutter_pagecall/flutter_pagecall.dart';
 
 abstract class PlatformPagecallView {
   Widget build({
