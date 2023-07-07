@@ -14,9 +14,9 @@ import io.flutter.plugin.platform.PlatformView
 
 fun String.toMap(): Map<String, String> {
     return this.split("&")
-        .map {
+        .mapNotNull {
             val pair = it.split("=")
-            pair[0] to pair[1]
+            if (pair.size == 2) pair[0] to pair[1] else null
         }
         .toMap()
 }
