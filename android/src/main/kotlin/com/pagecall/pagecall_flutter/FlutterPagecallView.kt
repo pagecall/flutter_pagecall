@@ -125,6 +125,10 @@ class FlutterPagecallView(
                 message?.let { pagecallWebView.sendMessage(it) }
                 result.success(null)
             }
+            "dispose" -> {
+                dispose()
+                result.success(null)
+            }
         }
     }
 

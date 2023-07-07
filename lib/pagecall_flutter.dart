@@ -6,9 +6,7 @@ import 'package:pagecall_flutter/src/android_pagecallview.dart';
 import 'package:pagecall_flutter/src/cupertino_pagecallview.dart';
 
 //ignore: must_be_immutable
-class PagecallView extends StatelessWidget {
-  static const String viewType = 'com.pagecall/pagecall_flutter';
-
+class PagecallView extends StatefulWidget {
   final String? mode;
 
   final String? roomId;
@@ -25,9 +23,7 @@ class PagecallView extends StatelessWidget {
 
   final bool debuggable;
 
-  late PagecallViewController _controller;
-
-  PagecallView({
+  const PagecallView({
     Key? key,
     this.mode,
     this.roomId,
@@ -39,6 +35,17 @@ class PagecallView extends StatelessWidget {
     this.onTerminated,
     this.debuggable = false,
   }) : super(key: key);
+
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _PagecallViewState createState() => _PagecallViewState();
+}
+class _PagecallViewState extends State<PagecallView> {
+  static const String viewType = 'com.pagecall/pagecall_flutter';
+
+
+  late PagecallViewController _controller;
 
   static PlatformPagecallView? _platform;
 
@@ -69,11 +76,11 @@ class PagecallView extends StatelessWidget {
     return platform!.build(
       context: context,
       creationParams: CreationParams(
-        mode: mode,
-        roomId: roomId,
-        accessToken: accessToken,
-        queryParams: queryParams,
-        debuggable: debuggable,
+        mode: widget.mode,
+        roomId: widget.roomId,
+        accessToken: widget.accessToken,
+        queryParams: widget.queryParams,
+        debuggable: widget.debuggable,
       ),
       viewType: viewType,
       onPlatformViewCreated: _onPlatformViewCreated,
@@ -81,11 +88,17 @@ class PagecallView extends StatelessWidget {
   }
 
   void _onPlatformViewCreated(int id) {
-    _controller = PagecallViewController(id, this);
+    _controller = PagecallViewController(id, widget);
 
-    if (onViewCreated != null) {
-      onViewCreated!(_controller);
+    if (widget.onViewCreated != null) {
+      widget.onViewCreated!(_controller);
     }
+  }
+
+  @override
+  void dispose() {
+    _controller._channel.invokeMethod("dispose");
+    super.dispose();
   }
 }
 
