@@ -3,6 +3,7 @@ package com.pagecall.flutter_pagecall
 import android.content.Context
 import android.net.Uri
 import android.os.Handler
+import android.view.KeyEvent
 import android.view.View
 import android.webkit.WebView
 import com.pagecall.PagecallWebView
@@ -34,7 +35,11 @@ class FlutterPagecallView(
     private var queryParams: String? = null
     private var debuggable: Boolean = false
 
+    companion object {
+        val instances = mutableListOf<FlutterPagecallView>()
+    }
     init {
+        instances.add(this)
         initParams(params)
 
         channel.setMethodCallHandler(this)
@@ -132,7 +137,11 @@ class FlutterPagecallView(
         }
     }
 
+    fun handleKeyDownEvent(keyCode: Int, event: KeyEvent?): Boolean {
+        return pagecallWebView.handleVolumeKeys(keyCode, event)
+    }
     override fun dispose() {
+        instances.remove(this)
         channel.setMethodCallHandler(null)
         pagecallWebView.destroy()
     }
