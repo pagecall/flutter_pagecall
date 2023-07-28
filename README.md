@@ -50,7 +50,19 @@ Expanded(
 _pagecallViewController?.sendMessage(message);  // when invoking sendMessage
 ```
 
+## Android Key Event Handling
 
+For handling key events on Android, you need to override the `onKeyDown` function in your `MainActivity.kt` as follows:
+
+```kotlin
+override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+    for (instance in FlutterPagecallView.instances) {
+        instance.handleKeyDownEvent(keyCode, event)
+    }
+    return super.onKeyDown(keyCode, event)
+}
+```
+You can refer to the MainActivity.kt in the example app for more details.
 ## Compatibility
 
 The following matrix lists the minimum support for Pagecall Flutter SDK version.
