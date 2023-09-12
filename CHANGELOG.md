@@ -7,3 +7,7 @@
 ## 1.0.1
 * Update Android SDK (to 0.0.21)
 * handle volume key event for Chime usage
+
+## 1.0.2
+* Update Android SDK (to 0.0.25)
+* Update iOS SDK (to 0.0.18)
