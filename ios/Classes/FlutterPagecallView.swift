@@ -60,11 +60,7 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         }
         queryItems.append(URLQueryItem(name: "access_token", value: accessToken))
         
-        Task {
-            await clearWebsideDataToInvalidateAccessToken()
-            
-            _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: queryItems)
-        }
+        _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: queryItems)
         
         self.addSubview(pagecallWebView)
     }
@@ -133,12 +129,6 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         if let val = params!["debuggable"] as? Bool {
             debuggable = val
         }
-    }
-    
-    func clearWebsideDataToInvalidateAccessToken() async {
-        let dataRecords = await WKWebsiteDataStore.default().dataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes())
-        
-        await WKWebsiteDataStore.default().removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), for: dataRecords)
     }
     
     public override func layoutSubviews() {
