@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Handler
 import android.view.KeyEvent
 import android.view.View
+import android.webkit.WebResourceError
 import android.webkit.WebView
 import com.pagecall.PagecallWebView
 import com.pagecall.TerminationReason
@@ -68,6 +69,12 @@ class FlutterPagecallView(
                     val reasonString = if (reason == TerminationReason.OTHER) reason.otherReason
                         else reason.value
                     channel.invokeMethod("onTerminated", reasonString)
+                }
+            }
+
+            override fun onError(error: WebResourceError?) {
+                Handler(context.mainLooper).post {
+                    channel.invokeMethod("onError", error?.toString())
                 }
             }
         })
