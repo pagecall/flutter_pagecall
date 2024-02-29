@@ -40,29 +40,31 @@ class _FirstScreenState extends State<FirstScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Column(children: [
-            TextField(
-              controller: roomIdFieldController,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(8.0),
-                hintText: 'Enter Room Id',
+          Column(
+            children: [
+              TextField(
+                controller: roomIdFieldController,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8.0),
+                  hintText: 'Enter Room Id',
+                ),
               ),
-            ),
-            TextField(
-              controller: accessTokenFieldController,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(8.0),
-                hintText: 'Enter Access Token',
+              TextField(
+                controller: accessTokenFieldController,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8.0),
+                  hintText: 'Enter Access Token',
+                ),
               ),
-            ),
-            TextField(
-              controller: queryParamsFieldController,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(8.0),
-                hintText: 'Enter Query Params (Optional, a=1&b=2&c=3)',
+              TextField(
+                controller: queryParamsFieldController,
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8.0),
+                  hintText: 'Enter Query Params (Optional, a=1&b=2&c=3)',
+                ),
               ),
-            ),
-          ],),
+            ],
+          ),
           ElevatedButton(
             child: const Text('Enter Room'),
             onPressed: () {
@@ -70,10 +72,9 @@ class _FirstScreenState extends State<FirstScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SecondScreen(
-                    roomId: roomIdFieldController.text, 
-                    accessToken: accessTokenFieldController.text, 
-                    queryParams: queryParamsFieldController.text
-                  ),
+                      roomId: roomIdFieldController.text,
+                      accessToken: accessTokenFieldController.text,
+                      queryParams: queryParamsFieldController.text),
                 ),
               );
             },
@@ -89,7 +90,11 @@ class SecondScreen extends StatefulWidget {
   final String accessToken;
   final String queryParams;
 
-  const SecondScreen({super.key, required this.roomId, this.accessToken = '', this.queryParams = ''});
+  const SecondScreen(
+      {super.key,
+      required this.roomId,
+      this.accessToken = '',
+      this.queryParams = ''});
 
   @override
   State<SecondScreen> createState() => _SecondScreenState();
@@ -107,42 +112,46 @@ class _SecondScreenState extends State<SecondScreen> {
         title: const Text('Pagecall Room'),
       ),
       body: Column(
-          children: [
-            TextField(
-              controller: messageFieldController,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(8.0),
-                hintText: "Submit to invoke sendMessage",
-              ),
-              keyboardType: TextInputType.text,
-              onSubmitted: _invokeSendMessage,
+        children: [
+          TextField(
+            controller: messageFieldController,
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(8.0),
+              hintText: "Submit to invoke sendMessage",
             ),
-            Expanded(
-              child: PagecallView(
-                mode: "meet",
-                roomId: widget.roomId,
-                accessToken: widget.accessToken,
-                queryParams: widget.queryParams,
-                onViewCreated: (controller) {
-                  pagecallViewController = controller;
-                },
-                onMessage: (message) {
-                  debugPrint('Received message=$message');
-                  Fluttertoast.showToast(msg: 'Message from Native: $message');
-                },
-                onLoaded: () {
-                  debugPrint('Pagecall loaded');
-                  Fluttertoast.showToast(msg: 'Pagecall loaded');
-                },
-                onTerminated: (reason) {
-                  debugPrint('Pagecall terminated: $reason');
-                  Fluttertoast.showToast(msg: 'Pagecall terminated: $reason');
-                },
-                debuggable: true,
-              ),
+            keyboardType: TextInputType.text,
+            onSubmitted: _invokeSendMessage,
+          ),
+          Expanded(
+            child: PagecallView(
+              mode: "meet",
+              roomId: widget.roomId,
+              accessToken: widget.accessToken,
+              queryParams: widget.queryParams,
+              onViewCreated: (controller) {
+                pagecallViewController = controller;
+              },
+              onMessage: (message) {
+                debugPrint('Received message=$message');
+                Fluttertoast.showToast(msg: 'Message from Native: $message');
+              },
+              onLoaded: () {
+                debugPrint('Pagecall loaded');
+                Fluttertoast.showToast(msg: 'Pagecall loaded');
+              },
+              onTerminated: (reason) {
+                debugPrint('Pagecall terminated: $reason');
+                Fluttertoast.showToast(msg: 'Pagecall terminated: $reason');
+              },
+              onError: (error) {
+                debugPrint('Pagecall error: $error');
+                Fluttertoast.showToast(msg: 'Pagecall error: $error');
+              },
+              debuggable: true,
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 

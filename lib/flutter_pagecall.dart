@@ -20,6 +20,7 @@ class PagecallView extends StatefulWidget {
   final void Function()? onLoaded;
   final void Function(String message)? onMessage;
   final void Function(String reason)? onTerminated;
+  final void Function(String error)? onError;
 
   final bool debuggable;
 
@@ -33,17 +34,17 @@ class PagecallView extends StatefulWidget {
     this.onLoaded,
     this.onMessage,
     this.onTerminated,
+    this.onError,
     this.debuggable = false,
   }) : super(key: key);
-
 
   @override
   // ignore: library_private_types_in_public_api
   _PagecallViewState createState() => _PagecallViewState();
 }
+
 class _PagecallViewState extends State<PagecallView> {
   static const String viewType = 'com.pagecall/flutter_pagecall';
-
 
   late PagecallViewController _controller;
 
@@ -151,14 +152,14 @@ class PagecallViewController {
       case 'onMessage':
         if (_pagecallView != null) {
           String message = call.arguments.toString();
-          if (_pagecallView?.onMessage!= null) {
+          if (_pagecallView?.onMessage != null) {
             _pagecallView?.onMessage!(message);
           }
         }
         break;
       case 'onLoaded':
         if (_pagecallView != null) {
-          if (_pagecallView?.onLoaded!= null) {
+          if (_pagecallView?.onLoaded != null) {
             _pagecallView?.onLoaded!();
           }
         }
@@ -166,8 +167,16 @@ class PagecallViewController {
       case 'onTerminated':
         if (_pagecallView != null) {
           String reason = call.arguments.toString();
-          if (_pagecallView?.onTerminated!= null) {
+          if (_pagecallView?.onTerminated != null) {
             _pagecallView?.onTerminated!(reason);
+          }
+        }
+        break;
+      case 'onError':
+        if (_pagecallView != null) {
+          String error = call.arguments.toString();
+          if (_pagecallView?.onError != null) {
+            _pagecallView?.onError!(error);
           }
         }
         break;

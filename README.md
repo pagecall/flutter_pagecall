@@ -43,6 +43,9 @@ Expanded(
     onTerminated: (reason) {
       debugPrint('onTerminated')
     },
+    onError: (error) {
+      debugPrint('onError')
+    },
     debuggable: true,
   ),
 ),
