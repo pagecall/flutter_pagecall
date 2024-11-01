@@ -18,3 +18,7 @@
 
 ## 1.0.4
 * Remove unnecessary step clearing WebsiteData
+
+## 1.0.5
+* Update Android SDK (to 0.0.42)
+* Update iOS SDK (to 0.0.23)
