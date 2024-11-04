@@ -13,17 +13,17 @@ func stringToQueryItems(_ queryString: String) -> [URLQueryItem] {
 
 public class FlutterPagecallView: NSObject, FlutterPlatformView {
     private var _view: UIView
-    
+
     private var mode: PagecallMode?
     private var roomId: String?
     private var accessToken: String?
-    
+
     public init(frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?, binaryMessenger messenger: FlutterBinaryMessenger?, channel: FlutterMethodChannel?) {
-        _view = FlutterEmbedView(frame: frame, channel: channel, creationParams: args as? [String : Any])
-        
+        _view = FlutterEmbedView(frame: frame, channel: channel, creationParams: args as? [String: Any])
+
         super.init()
     }
-    
+
     public func view() -> UIView {
         return _view
     }
@@ -31,55 +31,55 @@ public class FlutterPagecallView: NSObject, FlutterPlatformView {
 
 class FlutterEmbedView: UIView, PagecallDelegate {
     let pagecallWebView = PagecallWebView()
-    
+
     private var channel: FlutterMethodChannel?
-    
+
     private var mode: PagecallMode?
     private var roomId: String?
     private var accessToken: String?
     private var queryParams: String?
     private var debuggable: Bool = false
-    
+
     convenience init(frame: CGRect, channel: FlutterMethodChannel?, creationParams: [String: Any]?) {
         self.init(frame: frame)
         self.channel = channel
-        
+
         initParams(creationParams)
         initMethodChannel()
-        
+
         if #available(iOS 16.4, *) {
             pagecallWebView.isInspectable = debuggable
         }
-        
+
         pagecallWebView.delegate = self
 
         var queryItems: [URLQueryItem] = Array()
-    
+
         if let queryParams = queryParams {
             queryItems.append(contentsOf: stringToQueryItems(queryParams))
         }
         queryItems.append(URLQueryItem(name: "access_token", value: accessToken))
-        
+
         _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: queryItems)
-        
+
         self.addSubview(pagecallWebView)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private func initMethodChannel() {
         self.channel?.setMethodCallHandler(self.handleMethodCall)
     }
-    
+
     func handleMethodCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let arguments = call.arguments as? NSDictionary
-        
+
         switch call.method {
         case "sendMessage":
             if let message = arguments!["message"] as? String {
@@ -94,18 +94,18 @@ class FlutterEmbedView: UIView, PagecallDelegate {
                 self.dispose()
             }
             result(nil)
-            break;
+            break
         default:
             result(FlutterMethodNotImplemented)
             break
         }
     }
-    
+
     private func initParams(_ params: [String: Any]?) {
         if params == nil {
             return
         }
-        
+
         if let val = params!["mode"] as? String {
             if val == "meet" {
                 mode = PagecallMode.meet
@@ -113,24 +113,24 @@ class FlutterEmbedView: UIView, PagecallDelegate {
                 mode = PagecallMode.replay
             }
         }
-        
+
         if let val = params!["roomId"] as? String {
             roomId = val
         }
-        
+
         if let val = params!["accessToken"] as? String {
             accessToken = val
         }
-        
+
         if let val = params!["queryParams"] as? String {
             queryParams = val
         }
-        
+
         if let val = params!["debuggable"] as? Bool {
             debuggable = val
         }
     }
-    
+
     public override func layoutSubviews() {
         pagecallWebView.frame = CGRect(x: self.frame.origin.x,
                                        y: self.frame.origin.y,
@@ -138,7 +138,7 @@ class FlutterEmbedView: UIView, PagecallDelegate {
                                        height: self.frame.height)
         super.layoutSubviews()
     }
-    
+
     // MARK: PagecallDelegate
     func pagecallDidLoad(_ view: Pagecall.PagecallWebView) {
         self.channel?.invokeMethod("onLoaded", arguments: nil)
@@ -147,15 +147,15 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         switch reason {
           case .internal:
             self.channel?.invokeMethod("onTerminated", arguments: "internal")
-          case .other(let reasonString): 
+          case .other(let reasonString):
             self.channel?.invokeMethod("onTerminated", arguments: reasonString)
         }
     }
-    
+
     func pagecallDidReceive(_ view: PagecallWebView, message: String) {
         self.channel?.invokeMethod("onMessage", arguments: message)
     }
-    
+
     private func dispose() {
         self.channel?.setMethodCallHandler(nil)
         self.pagecallWebView.removeFromSuperview()
