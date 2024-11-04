@@ -158,6 +158,8 @@ class FlutterEmbedView: UIView, PagecallDelegate {
 
     private func dispose() {
         self.channel?.setMethodCallHandler(nil)
+        self.pagecallWebView.evaluateJavaScript("window.Pagecall?.terminate()")
+        self.pagecallWebView.cleanup()
         self.pagecallWebView.removeFromSuperview()
         self.pagecallWebView.delegate = nil
     }
