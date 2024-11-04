@@ -50,10 +50,6 @@ class _PagecallViewState extends State<PagecallView> {
 
   static PlatformPagecallView? _platform;
 
-  static set platform(PlatformPagecallView? platform) {
-    _platform = platform;
-  }
-
   static PlatformPagecallView? get platform {
     if (_platform == null) {
       switch (defaultTargetPlatform) {
