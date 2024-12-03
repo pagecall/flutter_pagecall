@@ -26,3 +26,7 @@
 ## 1.0.6
 * Update Android SDK (to 0.0.42)
 * Update iOS SDK (to 0.0.23)
+
+## 1.0.7
+* Update Android SDK (to 0.0.43)
+* Update iOS SDK (to 0.0.24)
