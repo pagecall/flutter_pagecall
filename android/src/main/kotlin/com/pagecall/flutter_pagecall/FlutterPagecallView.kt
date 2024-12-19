@@ -9,6 +9,7 @@ import android.webkit.WebResourceError
 import android.webkit.WebView
 import com.pagecall.PagecallWebView
 import com.pagecall.TerminationReason
+import com.pagecall.PagecallError
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -72,7 +73,7 @@ class FlutterPagecallView(
                 }
             }
 
-            override fun onError(error: WebResourceError?) {
+            override fun onError(error: PagecallError?) {
                 Handler(context.mainLooper).post {
                     channel.invokeMethod("onError", error?.toString())
                 }

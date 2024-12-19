@@ -56,7 +56,7 @@ android {
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
-        implementation 'com.pagecall:pagecall-android-sdk:0.0.43'
+        implementation 'com.pagecall:pagecall-android-sdk:0.0.45'
     }
 
     testOptions {
