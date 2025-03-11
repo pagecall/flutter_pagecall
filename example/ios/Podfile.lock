@@ -2,13 +2,13 @@ PODS:
   - Flutter (1.0.0)
   - flutter_pagecall (0.0.1):
     - Flutter
-    - Pagecall (= 0.0.24)
+    - Pagecall (= 0.0.27)
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
   - integration_test (0.0.1):
     - Flutter
-  - Pagecall (0.0.24)
+  - Pagecall (0.0.27)
   - Toast (4.0.0)
 
 DEPENDENCIES:
@@ -33,13 +33,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_pagecall: 1dda8cef2ceeec3ed03eb39ee1959efc8b526656
-  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
-  integration_test: 13825b8a9334a850581300559b8839134b124670
-  Pagecall: ff9a1340899094205bfe9985765ca4e8b56b4e87
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_pagecall: 212c9c23663d1f009c1e022ef0df90c4572a595a
+  fluttertoast: 294ad8b4b83f149520f7c13484770323c54df109
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  Pagecall: 68b6124ac8f08543effbca09e231db54dd67da3b
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
 PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
