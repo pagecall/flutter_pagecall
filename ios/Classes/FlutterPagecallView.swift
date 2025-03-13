@@ -38,6 +38,7 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     private var roomId: String?
     private var accessToken: String?
     private var queryParams: String?
+    private var unsafeCustomUrl: String?
     private var debuggable: Bool = false
 
     convenience init(frame: CGRect, channel: FlutterMethodChannel?, creationParams: [String: Any]?) {
@@ -52,15 +53,26 @@ class FlutterEmbedView: UIView, PagecallDelegate {
         }
 
         pagecallWebView.delegate = self
+        
+        if let unsafeUrl = unsafeCustomUrl {
+            if let url = URL(string: unsafeUrl) {
+                let request = URLRequest(url: url)
+                _ = pagecallWebView.load(request)
+            }
+        } else {
+            var queryItems: [URLQueryItem] = Array()
 
-        var queryItems: [URLQueryItem] = Array()
+            if let queryParams = queryParams {
+                queryItems.append(contentsOf: stringToQueryItems(queryParams))
+            }
+            if let accessToken = accessToken {
+                queryItems.append(URLQueryItem(name: "access_token", value: accessToken))
+            }
 
-        if let queryParams = queryParams {
-            queryItems.append(contentsOf: stringToQueryItems(queryParams))
+            if let roomId = roomId, let mode = mode {
+                _ = pagecallWebView.load(roomId: roomId, mode: mode, queryItems: queryItems)
+            }
         }
-        queryItems.append(URLQueryItem(name: "access_token", value: accessToken))
-
-        _ = pagecallWebView.load(roomId: roomId!, mode: mode!, queryItems: queryItems)
 
         self.addSubview(pagecallWebView)
     }
@@ -124,6 +136,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
 
         if let val = params!["queryParams"] as? String {
             queryParams = val
+        }
+        
+        if let val = params!["unsafeCustomUrl"] as? String {
+            unsafeCustomUrl = val
         }
 
         if let val = params!["debuggable"] as? Bool {

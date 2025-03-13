@@ -8,15 +8,15 @@ import 'package:flutter_pagecall/src/cupertino_pagecallview.dart';
 //ignore: must_be_immutable
 class PagecallView extends StatefulWidget {
   final String? mode;
-
   final String? roomId;
-
   final String? accessToken;
-
   final String? queryParams;
+  
+  /// 위험: 임의의 URL을 직접 지정합니다. 이 옵션을 사용하면 mode, roomId, accessToken, queryParams는 무시됩니다.
+  /// 이 옵션은 특수한 경우에만 사용해야 하며, 보안 위험이 있을 수 있습니다.
+  final String? unsafeCustomUrl;
 
   final void Function(PagecallViewController controller)? onViewCreated;
-
   final void Function()? onLoaded;
   final void Function(String message)? onMessage;
   final void Function(String reason)? onTerminated;
@@ -30,6 +30,7 @@ class PagecallView extends StatefulWidget {
     this.roomId,
     this.accessToken,
     this.queryParams,
+    this.unsafeCustomUrl,
     this.onViewCreated,
     this.onLoaded,
     this.onMessage,
@@ -77,6 +78,7 @@ class _PagecallViewState extends State<PagecallView> {
         roomId: widget.roomId,
         accessToken: widget.accessToken,
         queryParams: widget.queryParams,
+        unsafeCustomUrl: widget.unsafeCustomUrl,
         debuggable: widget.debuggable,
       ),
       viewType: viewType,
@@ -101,13 +103,10 @@ class _PagecallViewState extends State<PagecallView> {
 
 class CreationParams {
   final String? mode; // TODO: String -> enum
-
   final String? roomId;
-
   final String? accessToken;
-
   final String? queryParams;
-
+  final String? unsafeCustomUrl;
   final bool debuggable;
 
   CreationParams({
@@ -115,6 +114,7 @@ class CreationParams {
     this.roomId,
     this.accessToken,
     this.queryParams,
+    this.unsafeCustomUrl,
     this.debuggable = false,
   });
 
@@ -124,6 +124,7 @@ class CreationParams {
       "roomId": roomId,
       "accessToken": accessToken,
       "queryParams": queryParams,
+      "unsafeCustomUrl": unsafeCustomUrl,
       "debuggable": debuggable
     };
   }

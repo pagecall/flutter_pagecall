@@ -35,6 +35,7 @@ class FlutterPagecallView(
     private var roomId: String? = null
     private var accessToken: String? = null
     private var queryParams: String? = null
+    private var unsafeCustomUrl: String? = null
     private var debuggable: Boolean = false
 
     companion object {
@@ -97,6 +98,10 @@ class FlutterPagecallView(
         if(params.containsKey("queryParams")) {
             queryParams = params.getValue("queryParams")?.toString()
         }
+        
+        if(params.containsKey("unsafeCustomUrl")) {
+            unsafeCustomUrl = params.getValue("unsafeCustomUrl")?.toString()
+        }
 
         if (params.containsKey("debuggable")) {
             debuggable = params.getOrDefault("debuggable", false) as Boolean
@@ -104,6 +109,11 @@ class FlutterPagecallView(
     }
 
     private fun loadPage() {
+        if (unsafeCustomUrl != null) {
+            pagecallWebView.loadUrl(unsafeCustomUrl!!)
+            return
+        }
+        
         val queryMap = queryParams?.toMap()
         val url = Uri.parse("https://app.pagecall.com").buildUpon()
             .path(mode)
@@ -113,7 +123,7 @@ class FlutterPagecallView(
                 }
             }
             .apply {
-                if (roomId != null) {
+                if (accessToken != null) {
                     appendQueryParameter("access_token", accessToken)
                 }
             }
