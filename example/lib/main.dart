@@ -128,8 +128,14 @@ class _SecondScreenState extends State<SecondScreen> {
               roomId: widget.roomId,
               accessToken: widget.accessToken,
               queryParams: widget.queryParams,
+              unsafeCustomUrl: 'https://grigory-git-stage2-pagecall.vercel.app',
+              useNativePenEvent: true,
               onViewCreated: (controller) {
                 pagecallViewController = controller;
+              },
+              onWillNavigate: (url) {
+                debugPrint('Will navigate to $url');
+                Fluttertoast.showToast(msg: 'Will navigate to $url');
               },
               onMessage: (message) {
                 debugPrint('Received message=$message');

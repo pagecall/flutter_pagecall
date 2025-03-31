@@ -39,6 +39,8 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     private var accessToken: String?
     private var queryParams: String?
     private var debuggable: Bool = false
+    private var useNativePenEvent: Bool = false
+    private var unsafeCustomUrl: String?
 
     convenience init(frame: CGRect, channel: FlutterMethodChannel?, creationParams: [String: Any]?) {
         self.init(frame: frame)
@@ -51,7 +53,15 @@ class FlutterEmbedView: UIView, PagecallDelegate {
             pagecallWebView.isInspectable = debuggable
         }
 
+        pagecallWebView.useNativePenEvent = useNativePenEvent
+
         pagecallWebView.delegate = self
+
+        if let unsafeUrl = unsafeCustomUrl {
+            _ = pagecallWebView.load(URLRequest(url: URL(string: unsafeUrl)!))
+            self.addSubview(pagecallWebView)
+            return
+        }
 
         var queryItems: [URLQueryItem] = Array()
 
@@ -126,6 +136,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
             queryParams = val
         }
 
+        if let val = params!["unsafeCustomUrl"] as? String {
+            unsafeCustomUrl = val
+        }
+
         if let val = params!["debuggable"] as? Bool {
             debuggable = val
         }
@@ -154,6 +168,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
 
     func pagecallDidReceive(_ view: PagecallWebView, message: String) {
         self.channel?.invokeMethod("onMessage", arguments: message)
+    }
+
+    func pagecallWillNavigate(_ view: PagecallWebView, url: String) {
+        self.channel?.invokeMethod("onWillNavigate", arguments: url)
     }
 
     private func dispose() {
