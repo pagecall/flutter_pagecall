@@ -56,7 +56,7 @@ class FlutterPagecallView(
         pagecallWebView.setListener(object: PagecallWebView.Listener {
             override fun onWillNavigate(url: String) {
                 Handler(context.mainLooper).post {
-                    channel.invokeMethod("onWillNavigate", null)
+                    channel.invokeMethod("onWillNavigate", url)
                 }
             }
 
