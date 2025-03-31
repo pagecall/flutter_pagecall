@@ -15,14 +15,18 @@ class PagecallView extends StatefulWidget {
 
   final String? queryParams;
 
+  final String? unsafeCustomUrl;
+
   final void Function(PagecallViewController controller)? onViewCreated;
 
+  final void Function(String url)? onWillNavigate;
   final void Function()? onLoaded;
   final void Function(String message)? onMessage;
   final void Function(String reason)? onTerminated;
   final void Function(String error)? onError;
 
   final bool debuggable;
+  final bool useNativePenEvent;
 
   const PagecallView({
     Key? key,
@@ -30,12 +34,15 @@ class PagecallView extends StatefulWidget {
     this.roomId,
     this.accessToken,
     this.queryParams,
+    this.unsafeCustomUrl,
     this.onViewCreated,
+    this.onWillNavigate,
     this.onLoaded,
     this.onMessage,
     this.onTerminated,
     this.onError,
     this.debuggable = false,
+    this.useNativePenEvent = false,
   }) : super(key: key);
 
   @override
@@ -77,7 +84,9 @@ class _PagecallViewState extends State<PagecallView> {
         roomId: widget.roomId,
         accessToken: widget.accessToken,
         queryParams: widget.queryParams,
+        unsafeCustomUrl: widget.unsafeCustomUrl,
         debuggable: widget.debuggable,
+        useNativePenEvent: widget.useNativePenEvent,
       ),
       viewType: viewType,
       onPlatformViewCreated: _onPlatformViewCreated,
@@ -108,14 +117,20 @@ class CreationParams {
 
   final String? queryParams;
 
+  final String? unsafeCustomUrl;
+
   final bool debuggable;
+
+  final bool useNativePenEvent;
 
   CreationParams({
     this.mode,
     this.roomId,
     this.accessToken,
     this.queryParams,
+    this.unsafeCustomUrl,
     this.debuggable = false,
+    this.useNativePenEvent = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -124,7 +139,9 @@ class CreationParams {
       "roomId": roomId,
       "accessToken": accessToken,
       "queryParams": queryParams,
-      "debuggable": debuggable
+      "unsafeCustomUrl": unsafeCustomUrl,
+      "debuggable": debuggable,
+      "useNativePenEvent": useNativePenEvent
     };
   }
 }
@@ -145,6 +162,14 @@ class PagecallViewController {
 
   Future<dynamic> handleMethod(MethodCall call) async {
     switch (call.method) {
+      case 'onWillNavigate':
+        if (_pagecallView != null) {
+          String url = call.arguments.toString();
+          if (_pagecallView?.onWillNavigate != null) {
+            _pagecallView?.onWillNavigate!(url);
+          }
+        }
+        break;
       case 'onMessage':
         if (_pagecallView != null) {
           String message = call.arguments.toString();

@@ -38,3 +38,10 @@
 ## 1.0.9
 * Update Android SDK (to 0.0.47)
 * Update iOS SDK (to 0.0.27)
+
+## 1.0.10
+* Update Android SDK (to 0.0.49)
+* Update iOS SDK (to 0.0.28)
+* useNativePenEvent
+* unsafeCustomUrl
+* onWillNavigate
