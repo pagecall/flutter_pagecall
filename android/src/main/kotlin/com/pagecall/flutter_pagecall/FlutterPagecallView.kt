@@ -116,7 +116,7 @@ class FlutterPagecallView(
 
     private fun loadPage() {
         if (unsafeCustomUrl != null) {
-            pagecallwebView.loadUrl(unsafeCustomUrl!!)
+            pagecallWebView.loadUrl(unsafeCustomUrl!!)
             return
         }
 
@@ -161,9 +161,6 @@ class FlutterPagecallView(
         }
     }
 
-    fun handleKeyDownEvent(keyCode: Int, event: KeyEvent?): Boolean {
-        return pagecallWebView.handleVolumeKeys(keyCode, event)
-    }
     override fun dispose() {
         instances.remove(this)
         channel.setMethodCallHandler(null)
