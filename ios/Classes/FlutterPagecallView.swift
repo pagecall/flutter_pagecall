@@ -112,11 +112,9 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     }
 
     private func initParams(_ params: [String: Any]?) {
-        if params == nil {
-            return
-        }
+        guard let params = params else { return }
 
-        if let val = params!["mode"] as? String {
+        if let val = params["mode"] as? String {
             if val == "meet" {
                 mode = PagecallMode.meet
             } else if val == "replay" {
@@ -124,24 +122,28 @@ class FlutterEmbedView: UIView, PagecallDelegate {
             }
         }
 
-        if let val = params!["roomId"] as? String {
+        if let val = params["roomId"] as? String {
             roomId = val
         }
 
-        if let val = params!["accessToken"] as? String {
+        if let val = params["accessToken"] as? String {
             accessToken = val
         }
 
-        if let val = params!["queryParams"] as? String {
+        if let val = params["queryParams"] as? String {
             queryParams = val
         }
 
-        if let val = params!["unsafeCustomUrl"] as? String {
-            unsafeCustomUrl = val
+        if let val = params["debuggable"] as? Bool {
+            debuggable = val
         }
 
-        if let val = params!["debuggable"] as? Bool {
-            debuggable = val
+        if let val = params["useNativePenEvent"] as? Bool {
+            useNativePenEvent = val
+        }
+
+        if let val = params["unsafeCustomUrl"] as? String {
+            unsafeCustomUrl = val
         }
     }
 
