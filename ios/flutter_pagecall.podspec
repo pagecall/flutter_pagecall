@@ -15,7 +15,7 @@ A new Flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Pagecall', '0.0.28.dev-1'
+  s.dependency 'Pagecall', '0.0.28.dev-4'
   s.platform = :ios, '14.0'
 
   # Flutter.framework does not contain a i386 slice.
