@@ -2,12 +2,12 @@ PODS:
   - Flutter (1.0.0)
   - flutter_pagecall (0.0.1):
     - Flutter
-    - Pagecall (= 0.0.28.dev-1)
+    - Pagecall (= 0.0.28.dev-4)
   - fluttertoast (0.0.2):
     - Flutter
   - integration_test (0.0.1):
     - Flutter
-  - Pagecall (0.0.28-dev.1)
+  - Pagecall (0.0.28-dev.4)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -31,10 +31,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_pagecall: 4a2a1e06f044f2f7c1b9f63c0af4e974d5e4adbe
+  flutter_pagecall: 89c2ca315bffd42b6c23e97a6f3b59ab88fe66df
   fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
-  Pagecall: fc20d7558dca256dc5c024f53fefd4259b80bfa3
+  Pagecall: 8894dce31a57159f1ff2fc445d3efabd00a3466d
 
 PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
 
