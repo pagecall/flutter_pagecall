@@ -92,22 +92,19 @@ class FlutterEmbedView: UIView, PagecallDelegate {
 
         switch call.method {
         case "sendMessage":
-            if let message = arguments!["message"] as? String {
+            if let message = arguments! ["message"] as? String {
                 DispatchQueue.main.async {
                     self.pagecallWebView.sendMessage(message: message, completionHandler: nil)
                 }
             }
             result(nil)
-            break
-        case "dispose":
+            case "dispose":
             DispatchQueue.main.async {
                 self.dispose()
             }
             result(nil)
-            break
-        default:
+            default:
             result(FlutterMethodNotImplemented)
-            break
         }
     }
 
@@ -174,6 +171,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
 
     func pagecallWillNavigate(_ view: PagecallWebView, url: String) {
         self.channel?.invokeMethod("onWillNavigate", arguments: url)
+    }
+
+    func pagecallDidLoseAudioSession() {
+        self.channel?.invokeMethod("onAudioSessionLost", arguments: nil)
     }
 
     private func dispose() {

@@ -145,6 +145,11 @@ class _SecondScreenState extends State<SecondScreen> {
                 debugPrint('Pagecall loaded');
                 Fluttertoast.showToast(msg: 'Pagecall loaded');
               },
+              onAudioSessionLost: () {
+                debugPrint('Pagecall audioSession lost');
+                Navigator.of(context).pop();
+                Fluttertoast.showToast(msg: 'Audio session lost');
+              },
               onTerminated: (reason) {
                 debugPrint('Pagecall terminated: $reason');
                 Fluttertoast.showToast(msg: 'Pagecall terminated: $reason');

@@ -22,6 +22,7 @@ class PagecallView extends StatefulWidget {
   final void Function(String url)? onWillNavigate;
   final void Function()? onLoaded;
   final void Function(String message)? onMessage;
+  final void Function()? onAudioSessionLost;
   final void Function(String reason)? onTerminated;
   final void Function(String error)? onError;
 
@@ -39,6 +40,7 @@ class PagecallView extends StatefulWidget {
     this.onWillNavigate,
     this.onLoaded,
     this.onMessage,
+    this.onAudioSessionLost,
     this.onTerminated,
     this.onError,
     this.debuggable = false,
@@ -141,7 +143,7 @@ class CreationParams {
       "queryParams": queryParams,
       "unsafeCustomUrl": unsafeCustomUrl,
       "debuggable": debuggable,
-      "useNativePenEvent": useNativePenEvent
+      "useNativePenEvent": useNativePenEvent,
     };
   }
 }
@@ -163,42 +165,43 @@ class PagecallViewController {
   Future<dynamic> handleMethod(MethodCall call) async {
     switch (call.method) {
       case 'onWillNavigate':
-        if (_pagecallView != null) {
+        final handler = _pagecallView?.onWillNavigate;
+        if (handler != null) {
           String url = call.arguments.toString();
-          if (_pagecallView?.onWillNavigate != null) {
-            _pagecallView?.onWillNavigate!(url);
-          }
-        }
-        break;
-      case 'onMessage':
-        if (_pagecallView != null) {
-          String message = call.arguments.toString();
-          if (_pagecallView?.onMessage != null) {
-            _pagecallView?.onMessage!(message);
-          }
+          handler(url);
         }
         break;
       case 'onLoaded':
-        if (_pagecallView != null) {
-          if (_pagecallView?.onLoaded != null) {
-            _pagecallView?.onLoaded!();
-          }
+        final handler = _pagecallView?.onLoaded;
+        if (handler != null) {
+          handler();
+        }
+        break;
+      case 'onMessage':
+        final handler = _pagecallView?.onMessage;
+        if (handler != null) {
+          String message = call.arguments.toString();
+          handler(message);
+        }
+        break;
+      case 'onAudioSessionLost':
+        final handler = _pagecallView?.onAudioSessionLost;
+        if (handler != null) {
+          handler();
         }
         break;
       case 'onTerminated':
-        if (_pagecallView != null) {
+        final handler = _pagecallView?.onTerminated;
+        if (handler != null) {
           String reason = call.arguments.toString();
-          if (_pagecallView?.onTerminated != null) {
-            _pagecallView?.onTerminated!(reason);
-          }
+          handler(reason);
         }
         break;
       case 'onError':
-        if (_pagecallView != null) {
+        final handler = _pagecallView?.onError;
+        if (handler != null) {
           String error = call.arguments.toString();
-          if (_pagecallView?.onError != null) {
-            _pagecallView?.onError!(error);
-          }
+          handler(error);
         }
         break;
 
