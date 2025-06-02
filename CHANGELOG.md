@@ -45,3 +45,6 @@
 * useNativePenEvent
 * unsafeCustomUrl
 * onWillNavigate
+
+## 1.0.11-dev.0
+* onAudioSessionLost
