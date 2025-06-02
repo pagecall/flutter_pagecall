@@ -2,12 +2,14 @@ PODS:
   - Flutter (1.0.0)
   - flutter_pagecall (0.0.1):
     - Flutter
-    - Pagecall (= 0.0.28.dev-4)
+    - Pagecall (= 0.0.29.dev-5)
   - fluttertoast (0.0.2):
     - Flutter
   - integration_test (0.0.1):
     - Flutter
-  - Pagecall (0.0.28-dev.4)
+  - Pagecall (0.0.29-dev.5):
+    - RxSwift (= 6.9.0)
+  - RxSwift (6.9.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -18,6 +20,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Pagecall
+    - RxSwift
 
 EXTERNAL SOURCES:
   Flutter:
@@ -31,10 +34,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_pagecall: 89c2ca315bffd42b6c23e97a6f3b59ab88fe66df
+  flutter_pagecall: a858c8de05bcaf150ab1f54c0f0757bba16b8bb5
   fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
-  Pagecall: 8894dce31a57159f1ff2fc445d3efabd00a3466d
+  Pagecall: 7b996be0b88f8dc13f2a8b4b72fc0bbc3735f92c
+  RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
 
 PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
 
