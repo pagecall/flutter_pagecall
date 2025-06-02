@@ -1,4 +1,5 @@
 import Flutter
+import Pagecall
 
 public class PagecallFlutterPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -6,5 +7,7 @@ public class PagecallFlutterPlugin: NSObject, FlutterPlugin {
       let factory = FlutterPagecallViewFactory(messenger: messenger)
 
       registrar.register(factory, withId: "com.pagecall/flutter_pagecall")
+
+      PagecallWebView.configure()
   }
 }
