@@ -48,3 +48,8 @@
 
 ## 1.0.11-dev.0
 * onAudioSessionLost
+
+## 1.0.11-dev.1
+* Update iOS SDK (to 0.0.29.dev-6)
+* Fix a possible crash
+* onAudioSessionLost
