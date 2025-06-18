@@ -53,3 +53,7 @@
 * Update iOS SDK (to 0.0.29.dev-6)
 * Fix a possible crash
 * onAudioSessionLost
+
+## 1.0.11-dev.2
+* Update iOS SDK (to 0.0.29.dev-7)
+* Keep call on network reconnect
