@@ -46,14 +46,9 @@
 * unsafeCustomUrl
 * onWillNavigate
 
-## 1.0.11-dev.0
-* onAudioSessionLost
-
-## 1.0.11-dev.1
-* Update iOS SDK (to 0.0.29.dev-6)
+## 1.0.11
+* Update Android SDK (to 0.0.50)
+* Update iOS SDK (to 0.0.31)
 * Fix a possible crash
 * onAudioSessionLost
-
-## 1.0.11-dev.2
-* Update iOS SDK (to 0.0.29.dev-7)
 * Keep call on network reconnect
