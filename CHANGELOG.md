@@ -52,3 +52,7 @@
 * Fix a possible crash
 * onAudioSessionLost
 * Keep call on network reconnect
+
+## 1.0.12
+* Update Android SDK (to 0.0.51)
+* Support file upload in Android
