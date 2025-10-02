@@ -128,7 +128,6 @@ class _SecondScreenState extends State<SecondScreen> {
               roomId: widget.roomId,
               accessToken: widget.accessToken,
               queryParams: widget.queryParams,
-              unsafeCustomUrl: 'https://grigory-git-stage2-pagecall.vercel.app',
               useNativePenEvent: true,
               onViewCreated: (controller) {
                 pagecallViewController = controller;
