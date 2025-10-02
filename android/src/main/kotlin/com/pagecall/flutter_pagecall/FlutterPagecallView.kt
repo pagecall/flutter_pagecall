@@ -1,6 +1,7 @@
 package com.pagecall.flutter_pagecall
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import android.view.KeyEvent
@@ -141,6 +142,10 @@ class FlutterPagecallView(
             .build()
 
         pagecallWebView.loadUrl(url.toString())
+    }
+
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        pagecallWebView.onActivityResult(requestCode, resultCode, data);
     }
 
     override fun getView(): View = pagecallWebView
