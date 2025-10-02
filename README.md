@@ -65,6 +65,18 @@ override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
     return super.onKeyDown(keyCode, event)
 }
 ```
+
+For handling file uploads on Android, you also need to override the `onActivityResult` function in your `MainActivity.kt`:
+
+```kotlin
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    FlutterPagecallView.instances.forEach { view ->
+        view.onActivityResult(requestCode, resultCode, data)
+    }
+}
+```
+
 You can refer to the MainActivity.kt in the example app for more details.
 ## Compatibility
 
