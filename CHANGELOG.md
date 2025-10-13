@@ -56,3 +56,7 @@
 ## 1.0.12
 * Update Android SDK (to 0.0.51)
 * Support file upload in Android
+
+## 1.0.13
+* Update Android SDK (to 0.0.52)
+* Support Android 16KB page size
