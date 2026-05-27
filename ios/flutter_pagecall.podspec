@@ -13,7 +13,7 @@ A new Flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Pagecall' => 'support@pagecall.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'flutter_pagecall/Sources/flutter_pagecall/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'Pagecall', '0.0.31'
   s.platform = :ios, '14.0'

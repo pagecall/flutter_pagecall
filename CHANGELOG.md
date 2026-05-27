@@ -60,3 +60,6 @@
 ## 1.0.13
 * Update Android SDK (to 0.0.52)
 * Support Android 16KB page size
+
+## 1.0.14
+* Support Swift Package Manager (SPM) for iOS (CocoaPods still supported)

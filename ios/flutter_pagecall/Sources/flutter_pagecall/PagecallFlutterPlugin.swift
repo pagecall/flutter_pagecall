@@ -1,5 +1,9 @@
 import Flutter
+#if SWIFT_PACKAGE
+import PagecallCore
+#else
 import Pagecall
+#endif
 
 public class PagecallFlutterPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
