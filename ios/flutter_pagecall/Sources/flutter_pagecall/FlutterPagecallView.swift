@@ -1,7 +1,11 @@
 import Flutter
 import UIKit
 import WebKit
+#if SWIFT_PACKAGE
+import PagecallCore
+#else
 import Pagecall
+#endif
 
 func stringToQueryItems(_ queryString: String) -> [URLQueryItem] {
     return queryString.components(separatedBy: "&").compactMap { component in
@@ -153,10 +157,10 @@ class FlutterEmbedView: UIView, PagecallDelegate {
     }
 
     // MARK: PagecallDelegate
-    func pagecallDidLoad(_ view: Pagecall.PagecallWebView) {
+    func pagecallDidLoad(_ view: PagecallWebView) {
         self.channel?.invokeMethod("onLoaded", arguments: nil)
     }
-    func pagecallDidTerminate(_ view: Pagecall.PagecallWebView, reason: Pagecall.TerminationReason) {
+    func pagecallDidTerminate(_ view: PagecallWebView, reason: TerminationReason) {
         switch reason {
           case .internal:
             self.channel?.invokeMethod("onTerminated", arguments: "internal")

@@ -60,3 +60,7 @@
 ## 1.0.13
 * Update Android SDK (to 0.0.52)
 * Support Android 16KB page size
+
+## 1.0.14
+* Support Swift Package Manager (SPM) for iOS (CocoaPods still supported)
+* Requires Flutter 3.41+ (the SPM `FlutterFramework` integration); CocoaPods users on older Flutter should stay on 1.0.13
