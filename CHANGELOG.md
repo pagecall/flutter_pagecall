@@ -63,3 +63,4 @@
 
 ## 1.0.14
 * Support Swift Package Manager (SPM) for iOS (CocoaPods still supported)
+* Requires Flutter 3.41+ (the SPM `FlutterFramework` integration); CocoaPods users on older Flutter should stay on 1.0.13
